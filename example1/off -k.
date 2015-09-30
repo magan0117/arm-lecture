@@ -1,0 +1,396 @@
+
+example1:     file format elf32-littlearm
+
+
+Disassembly of section .init:
+
+000082e0 <_init>:
+    82e0:	e92d4008 	push	{r3, lr}
+    82e4:	eb00001e 	bl	8364 <call_weak_fn>
+    82e8:	e8bd8008 	pop	{r3, pc}
+
+Disassembly of section .plt:
+
+000082ec <.plt>:
+    82ec:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+    82f0:	e59fe004 	ldr	lr, [pc, #4]	; 82fc <_init+0x1c>
+    82f4:	e08fe00e 	add	lr, pc, lr
+    82f8:	e5bef008 	ldr	pc, [lr, #8]!
+    82fc:	00008d04 	.word	0x00008d04
+    8300:	e28fc600 	add	ip, pc, #0, 12
+    8304:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    8308:	e5bcfd04 	ldr	pc, [ip, #3332]!	; 0xd04
+    830c:	e28fc600 	add	ip, pc, #0, 12
+    8310:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    8314:	e5bcfcfc 	ldr	pc, [ip, #3324]!	; 0xcfc
+    8318:	e28fc600 	add	ip, pc, #0, 12
+    831c:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    8320:	e5bcfcf4 	ldr	pc, [ip, #3316]!	; 0xcf4
+    8324:	e28fc600 	add	ip, pc, #0, 12
+    8328:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    832c:	e5bcfcec 	ldr	pc, [ip, #3308]!	; 0xcec
+
+Disassembly of section .text:
+
+00008330 <main>:
+    8330:	2000      	movs	r0, #0
+    8332:	4770      	bx	lr
+
+00008334 <_start>:
+    8334:	f04f 0b00 	mov.w	fp, #0
+    8338:	f04f 0e00 	mov.w	lr, #0
+    833c:	bc02      	pop	{r1}
+    833e:	466a      	mov	r2, sp
+    8340:	b404      	push	{r2}
+    8342:	b401      	push	{r0}
+    8344:	f8df c010 	ldr.w	ip, [pc, #16]	; 8358 <_start+0x24>
+    8348:	f84d cd04 	str.w	ip, [sp, #-4]!
+    834c:	4803      	ldr	r0, [pc, #12]	; (835c <_start+0x28>)
+    834e:	4b04      	ldr	r3, [pc, #16]	; (8360 <_start+0x2c>)
+    8350:	f7ff efdc 	blx	830c <_init+0x2c>
+    8354:	f7ff efe6 	blx	8324 <_init+0x44>
+    8358:	00008715 	.word	0x00008715
+    835c:	00008331 	.word	0x00008331
+    8360:	000086d5 	.word	0x000086d5
+
+00008364 <call_weak_fn>:
+    8364:	e59f3014 	ldr	r3, [pc, #20]	; 8380 <call_weak_fn+0x1c>
+    8368:	e59f2014 	ldr	r2, [pc, #20]	; 8384 <call_weak_fn+0x20>
+    836c:	e08f3003 	add	r3, pc, r3
+    8370:	e7932002 	ldr	r2, [r3, r2]
+    8374:	e3520000 	cmp	r2, #0
+    8378:	012fff1e 	bxeq	lr
+    837c:	eaffffe5 	b	8318 <_init+0x38>
+    8380:	00008c8c 	.word	0x00008c8c
+    8384:	0000001c 	.word	0x0000001c
+
+00008388 <deregister_tm_clones>:
+    8388:	4b07      	ldr	r3, [pc, #28]	; (83a8 <deregister_tm_clones+0x20>)
+    838a:	f241 0028 	movw	r0, #4136	; 0x1028
+    838e:	f2c0 0001 	movt	r0, #1
+    8392:	1a1b      	subs	r3, r3, r0
+    8394:	2b06      	cmp	r3, #6
+    8396:	d800      	bhi.n	839a <deregister_tm_clones+0x12>
+    8398:	4770      	bx	lr
+    839a:	f240 0300 	movw	r3, #0
+    839e:	f2c0 0300 	movt	r3, #0
+    83a2:	2b00      	cmp	r3, #0
+    83a4:	d0f8      	beq.n	8398 <deregister_tm_clones+0x10>
+    83a6:	4718      	bx	r3
+    83a8:	0001102b 	.word	0x0001102b
+
+000083ac <register_tm_clones>:
+    83ac:	f241 0328 	movw	r3, #4136	; 0x1028
+    83b0:	f241 0028 	movw	r0, #4136	; 0x1028
+    83b4:	f2c0 0301 	movt	r3, #1
+    83b8:	f2c0 0001 	movt	r0, #1
+    83bc:	1a1b      	subs	r3, r3, r0
+    83be:	109b      	asrs	r3, r3, #2
+    83c0:	eb03 73d3 	add.w	r3, r3, r3, lsr #31
+    83c4:	1059      	asrs	r1, r3, #1
+    83c6:	d100      	bne.n	83ca <register_tm_clones+0x1e>
+    83c8:	4770      	bx	lr
+    83ca:	f240 0200 	movw	r2, #0
+    83ce:	f2c0 0200 	movt	r2, #0
+    83d2:	2a00      	cmp	r2, #0
+    83d4:	d0f8      	beq.n	83c8 <register_tm_clones+0x1c>
+    83d6:	4710      	bx	r2
+
+000083d8 <__do_global_dtors_aux>:
+    83d8:	b510      	push	{r4, lr}
+    83da:	f241 0428 	movw	r4, #4136	; 0x1028
+    83de:	f2c0 0401 	movt	r4, #1
+    83e2:	7823      	ldrb	r3, [r4, #0]
+    83e4:	b91b      	cbnz	r3, 83ee <__do_global_dtors_aux+0x16>
+    83e6:	f7ff ffcf 	bl	8388 <deregister_tm_clones>
+    83ea:	2301      	movs	r3, #1
+    83ec:	7023      	strb	r3, [r4, #0]
+    83ee:	bd10      	pop	{r4, pc}
+
+000083f0 <frame_dummy>:
+    83f0:	f640 7014 	movw	r0, #3860	; 0xf14
+    83f4:	f2c0 0001 	movt	r0, #1
+    83f8:	b508      	push	{r3, lr}
+    83fa:	6803      	ldr	r3, [r0, #0]
+    83fc:	b12b      	cbz	r3, 840a <frame_dummy+0x1a>
+    83fe:	f240 0300 	movw	r3, #0
+    8402:	f2c0 0300 	movt	r3, #0
+    8406:	b103      	cbz	r3, 840a <frame_dummy+0x1a>
+    8408:	4798      	blx	r3
+    840a:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+    840e:	e7cd      	b.n	83ac <register_tm_clones>
+
+00008410 <div>:
+    8410:	b508      	push	{r3, lr}
+    8412:	f000 f801 	bl	8418 <__aeabi_idiv>
+    8416:	bd08      	pop	{r3, pc}
+
+00008418 <__aeabi_idiv>:
+    8418:	2900      	cmp	r1, #0
+    841a:	f000 813e 	beq.w	869a <.divsi3_skip_div0_test+0x27c>
+
+0000841e <.divsi3_skip_div0_test>:
+    841e:	ea80 0c01 	eor.w	ip, r0, r1
+    8422:	bf48      	it	mi
+    8424:	4249      	negmi	r1, r1
+    8426:	1e4a      	subs	r2, r1, #1
+    8428:	f000 811f 	beq.w	866a <.divsi3_skip_div0_test+0x24c>
+    842c:	0003      	movs	r3, r0
+    842e:	bf48      	it	mi
+    8430:	4243      	negmi	r3, r0
+    8432:	428b      	cmp	r3, r1
+    8434:	f240 811e 	bls.w	8674 <.divsi3_skip_div0_test+0x256>
+    8438:	4211      	tst	r1, r2
+    843a:	f000 8123 	beq.w	8684 <.divsi3_skip_div0_test+0x266>
+    843e:	fab3 f283 	clz	r2, r3
+    8442:	fab1 f081 	clz	r0, r1
+    8446:	eba0 0202 	sub.w	r2, r0, r2
+    844a:	f1c2 021f 	rsb	r2, r2, #31
+    844e:	a004      	add	r0, pc, #16	; (adr r0, 8460 <.divsi3_skip_div0_test+0x42>)
+    8450:	eb00 1202 	add.w	r2, r0, r2, lsl #4
+    8454:	f04f 0000 	mov.w	r0, #0
+    8458:	4697      	mov	pc, r2
+    845a:	bf00      	nop
+    845c:	f3af 8000 	nop.w
+    8460:	ebb3 7fc1 	cmp.w	r3, r1, lsl #31
+    8464:	bf00      	nop
+    8466:	eb40 0000 	adc.w	r0, r0, r0
+    846a:	bf28      	it	cs
+    846c:	eba3 73c1 	subcs.w	r3, r3, r1, lsl #31
+    8470:	ebb3 7f81 	cmp.w	r3, r1, lsl #30
+    8474:	bf00      	nop
+    8476:	eb40 0000 	adc.w	r0, r0, r0
+    847a:	bf28      	it	cs
+    847c:	eba3 7381 	subcs.w	r3, r3, r1, lsl #30
+    8480:	ebb3 7f41 	cmp.w	r3, r1, lsl #29
+    8484:	bf00      	nop
+    8486:	eb40 0000 	adc.w	r0, r0, r0
+    848a:	bf28      	it	cs
+    848c:	eba3 7341 	subcs.w	r3, r3, r1, lsl #29
+    8490:	ebb3 7f01 	cmp.w	r3, r1, lsl #28
+    8494:	bf00      	nop
+    8496:	eb40 0000 	adc.w	r0, r0, r0
+    849a:	bf28      	it	cs
+    849c:	eba3 7301 	subcs.w	r3, r3, r1, lsl #28
+    84a0:	ebb3 6fc1 	cmp.w	r3, r1, lsl #27
+    84a4:	bf00      	nop
+    84a6:	eb40 0000 	adc.w	r0, r0, r0
+    84aa:	bf28      	it	cs
+    84ac:	eba3 63c1 	subcs.w	r3, r3, r1, lsl #27
+    84b0:	ebb3 6f81 	cmp.w	r3, r1, lsl #26
+    84b4:	bf00      	nop
+    84b6:	eb40 0000 	adc.w	r0, r0, r0
+    84ba:	bf28      	it	cs
+    84bc:	eba3 6381 	subcs.w	r3, r3, r1, lsl #26
+    84c0:	ebb3 6f41 	cmp.w	r3, r1, lsl #25
+    84c4:	bf00      	nop
+    84c6:	eb40 0000 	adc.w	r0, r0, r0
+    84ca:	bf28      	it	cs
+    84cc:	eba3 6341 	subcs.w	r3, r3, r1, lsl #25
+    84d0:	ebb3 6f01 	cmp.w	r3, r1, lsl #24
+    84d4:	bf00      	nop
+    84d6:	eb40 0000 	adc.w	r0, r0, r0
+    84da:	bf28      	it	cs
+    84dc:	eba3 6301 	subcs.w	r3, r3, r1, lsl #24
+    84e0:	ebb3 5fc1 	cmp.w	r3, r1, lsl #23
+    84e4:	bf00      	nop
+    84e6:	eb40 0000 	adc.w	r0, r0, r0
+    84ea:	bf28      	it	cs
+    84ec:	eba3 53c1 	subcs.w	r3, r3, r1, lsl #23
+    84f0:	ebb3 5f81 	cmp.w	r3, r1, lsl #22
+    84f4:	bf00      	nop
+    84f6:	eb40 0000 	adc.w	r0, r0, r0
+    84fa:	bf28      	it	cs
+    84fc:	eba3 5381 	subcs.w	r3, r3, r1, lsl #22
+    8500:	ebb3 5f41 	cmp.w	r3, r1, lsl #21
+    8504:	bf00      	nop
+    8506:	eb40 0000 	adc.w	r0, r0, r0
+    850a:	bf28      	it	cs
+    850c:	eba3 5341 	subcs.w	r3, r3, r1, lsl #21
+    8510:	ebb3 5f01 	cmp.w	r3, r1, lsl #20
+    8514:	bf00      	nop
+    8516:	eb40 0000 	adc.w	r0, r0, r0
+    851a:	bf28      	it	cs
+    851c:	eba3 5301 	subcs.w	r3, r3, r1, lsl #20
+    8520:	ebb3 4fc1 	cmp.w	r3, r1, lsl #19
+    8524:	bf00      	nop
+    8526:	eb40 0000 	adc.w	r0, r0, r0
+    852a:	bf28      	it	cs
+    852c:	eba3 43c1 	subcs.w	r3, r3, r1, lsl #19
+    8530:	ebb3 4f81 	cmp.w	r3, r1, lsl #18
+    8534:	bf00      	nop
+    8536:	eb40 0000 	adc.w	r0, r0, r0
+    853a:	bf28      	it	cs
+    853c:	eba3 4381 	subcs.w	r3, r3, r1, lsl #18
+    8540:	ebb3 4f41 	cmp.w	r3, r1, lsl #17
+    8544:	bf00      	nop
+    8546:	eb40 0000 	adc.w	r0, r0, r0
+    854a:	bf28      	it	cs
+    854c:	eba3 4341 	subcs.w	r3, r3, r1, lsl #17
+    8550:	ebb3 4f01 	cmp.w	r3, r1, lsl #16
+    8554:	bf00      	nop
+    8556:	eb40 0000 	adc.w	r0, r0, r0
+    855a:	bf28      	it	cs
+    855c:	eba3 4301 	subcs.w	r3, r3, r1, lsl #16
+    8560:	ebb3 3fc1 	cmp.w	r3, r1, lsl #15
+    8564:	bf00      	nop
+    8566:	eb40 0000 	adc.w	r0, r0, r0
+    856a:	bf28      	it	cs
+    856c:	eba3 33c1 	subcs.w	r3, r3, r1, lsl #15
+    8570:	ebb3 3f81 	cmp.w	r3, r1, lsl #14
+    8574:	bf00      	nop
+    8576:	eb40 0000 	adc.w	r0, r0, r0
+    857a:	bf28      	it	cs
+    857c:	eba3 3381 	subcs.w	r3, r3, r1, lsl #14
+    8580:	ebb3 3f41 	cmp.w	r3, r1, lsl #13
+    8584:	bf00      	nop
+    8586:	eb40 0000 	adc.w	r0, r0, r0
+    858a:	bf28      	it	cs
+    858c:	eba3 3341 	subcs.w	r3, r3, r1, lsl #13
+    8590:	ebb3 3f01 	cmp.w	r3, r1, lsl #12
+    8594:	bf00      	nop
+    8596:	eb40 0000 	adc.w	r0, r0, r0
+    859a:	bf28      	it	cs
+    859c:	eba3 3301 	subcs.w	r3, r3, r1, lsl #12
+    85a0:	ebb3 2fc1 	cmp.w	r3, r1, lsl #11
+    85a4:	bf00      	nop
+    85a6:	eb40 0000 	adc.w	r0, r0, r0
+    85aa:	bf28      	it	cs
+    85ac:	eba3 23c1 	subcs.w	r3, r3, r1, lsl #11
+    85b0:	ebb3 2f81 	cmp.w	r3, r1, lsl #10
+    85b4:	bf00      	nop
+    85b6:	eb40 0000 	adc.w	r0, r0, r0
+    85ba:	bf28      	it	cs
+    85bc:	eba3 2381 	subcs.w	r3, r3, r1, lsl #10
+    85c0:	ebb3 2f41 	cmp.w	r3, r1, lsl #9
+    85c4:	bf00      	nop
+    85c6:	eb40 0000 	adc.w	r0, r0, r0
+    85ca:	bf28      	it	cs
+    85cc:	eba3 2341 	subcs.w	r3, r3, r1, lsl #9
+    85d0:	ebb3 2f01 	cmp.w	r3, r1, lsl #8
+    85d4:	bf00      	nop
+    85d6:	eb40 0000 	adc.w	r0, r0, r0
+    85da:	bf28      	it	cs
+    85dc:	eba3 2301 	subcs.w	r3, r3, r1, lsl #8
+    85e0:	ebb3 1fc1 	cmp.w	r3, r1, lsl #7
+    85e4:	bf00      	nop
+    85e6:	eb40 0000 	adc.w	r0, r0, r0
+    85ea:	bf28      	it	cs
+    85ec:	eba3 13c1 	subcs.w	r3, r3, r1, lsl #7
+    85f0:	ebb3 1f81 	cmp.w	r3, r1, lsl #6
+    85f4:	bf00      	nop
+    85f6:	eb40 0000 	adc.w	r0, r0, r0
+    85fa:	bf28      	it	cs
+    85fc:	eba3 1381 	subcs.w	r3, r3, r1, lsl #6
+    8600:	ebb3 1f41 	cmp.w	r3, r1, lsl #5
+    8604:	bf00      	nop
+    8606:	eb40 0000 	adc.w	r0, r0, r0
+    860a:	bf28      	it	cs
+    860c:	eba3 1341 	subcs.w	r3, r3, r1, lsl #5
+    8610:	ebb3 1f01 	cmp.w	r3, r1, lsl #4
+    8614:	bf00      	nop
+    8616:	eb40 0000 	adc.w	r0, r0, r0
+    861a:	bf28      	it	cs
+    861c:	eba3 1301 	subcs.w	r3, r3, r1, lsl #4
+    8620:	ebb3 0fc1 	cmp.w	r3, r1, lsl #3
+    8624:	bf00      	nop
+    8626:	eb40 0000 	adc.w	r0, r0, r0
+    862a:	bf28      	it	cs
+    862c:	eba3 03c1 	subcs.w	r3, r3, r1, lsl #3
+    8630:	ebb3 0f81 	cmp.w	r3, r1, lsl #2
+    8634:	bf00      	nop
+    8636:	eb40 0000 	adc.w	r0, r0, r0
+    863a:	bf28      	it	cs
+    863c:	eba3 0381 	subcs.w	r3, r3, r1, lsl #2
+    8640:	ebb3 0f41 	cmp.w	r3, r1, lsl #1
+    8644:	bf00      	nop
+    8646:	eb40 0000 	adc.w	r0, r0, r0
+    864a:	bf28      	it	cs
+    864c:	eba3 0341 	subcs.w	r3, r3, r1, lsl #1
+    8650:	ebb3 0f01 	cmp.w	r3, r1
+    8654:	bf00      	nop
+    8656:	eb40 0000 	adc.w	r0, r0, r0
+    865a:	bf28      	it	cs
+    865c:	eba3 0301 	subcs.w	r3, r3, r1
+    8660:	f1bc 0f00 	cmp.w	ip, #0
+    8664:	bf48      	it	mi
+    8666:	4240      	negmi	r0, r0
+    8668:	4770      	bx	lr
+    866a:	ea9c 0f00 	teq	ip, r0
+    866e:	bf48      	it	mi
+    8670:	4240      	negmi	r0, r0
+    8672:	4770      	bx	lr
+    8674:	bf38      	it	cc
+    8676:	2000      	movcc	r0, #0
+    8678:	bf04      	itt	eq
+    867a:	ea4f 70ec 	moveq.w	r0, ip, asr #31
+    867e:	f040 0001 	orreq.w	r0, r0, #1
+    8682:	4770      	bx	lr
+    8684:	fab1 f281 	clz	r2, r1
+    8688:	f1c2 021f 	rsb	r2, r2, #31
+    868c:	f1bc 0f00 	cmp.w	ip, #0
+    8690:	fa23 f002 	lsr.w	r0, r3, r2
+    8694:	bf48      	it	mi
+    8696:	4240      	negmi	r0, r0
+    8698:	4770      	bx	lr
+    869a:	2800      	cmp	r0, #0
+    869c:	bfc8      	it	gt
+    869e:	f06f 4000 	mvngt.w	r0, #2147483648	; 0x80000000
+    86a2:	bfb8      	it	lt
+    86a4:	f04f 4000 	movlt.w	r0, #2147483648	; 0x80000000
+    86a8:	f000 b80e 	b.w	86c8 <__aeabi_idiv0>
+
+000086ac <__aeabi_idivmod>:
+    86ac:	2900      	cmp	r1, #0
+    86ae:	d0f4      	beq.n	869a <.divsi3_skip_div0_test+0x27c>
+    86b0:	e92d 4003 	stmdb	sp!, {r0, r1, lr}
+    86b4:	f7ff feb3 	bl	841e <.divsi3_skip_div0_test>
+    86b8:	e8bd 4006 	ldmia.w	sp!, {r1, r2, lr}
+    86bc:	fb02 f300 	mul.w	r3, r2, r0
+    86c0:	eba1 0103 	sub.w	r1, r1, r3
+    86c4:	4770      	bx	lr
+    86c6:	bf00      	nop
+
+000086c8 <__aeabi_idiv0>:
+    86c8:	b502      	push	{r1, lr}
+    86ca:	f04f 0008 	mov.w	r0, #8
+    86ce:	f7ff ee18 	blx	8300 <_init+0x20>
+    86d2:	bd02      	pop	{r1, pc}
+
+000086d4 <__libc_csu_init>:
+    86d4:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+    86d8:	4607      	mov	r7, r0
+    86da:	4e0c      	ldr	r6, [pc, #48]	; (870c <__libc_csu_init+0x38>)
+    86dc:	4688      	mov	r8, r1
+    86de:	4d0c      	ldr	r5, [pc, #48]	; (8710 <__libc_csu_init+0x3c>)
+    86e0:	4691      	mov	r9, r2
+    86e2:	447e      	add	r6, pc
+    86e4:	f7ff edfc 	blx	82e0 <_init>
+    86e8:	447d      	add	r5, pc
+    86ea:	1b76      	subs	r6, r6, r5
+    86ec:	10b6      	asrs	r6, r6, #2
+    86ee:	d00a      	beq.n	8706 <__libc_csu_init+0x32>
+    86f0:	3d04      	subs	r5, #4
+    86f2:	2400      	movs	r4, #0
+    86f4:	3401      	adds	r4, #1
+    86f6:	f855 3f04 	ldr.w	r3, [r5, #4]!
+    86fa:	4638      	mov	r0, r7
+    86fc:	4641      	mov	r1, r8
+    86fe:	464a      	mov	r2, r9
+    8700:	4798      	blx	r3
+    8702:	42b4      	cmp	r4, r6
+    8704:	d1f6      	bne.n	86f4 <__libc_csu_init+0x20>
+    8706:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    870a:	bf00      	nop
+    870c:	0000882a 	.word	0x0000882a
+    8710:	00008820 	.word	0x00008820
+
+00008714 <__libc_csu_fini>:
+    8714:	4770      	bx	lr
+    8716:	bf00      	nop
+
+Disassembly of section .fini:
+
+00008718 <_fini>:
+    8718:	e92d4008 	push	{r3, lr}
+    871c:	e8bd8008 	pop	{r3, pc}
